@@ -1,0 +1,4 @@
+#Fri Sep 20 12:56:31 EAT 2019
+base.0=E\:\\Coding\\Android\\TimeTable\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
+path.0=classes.dex
+renamed.0=classes.dex
