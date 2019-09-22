@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name"> CCT 4.1 Timetable</string>
     <string name="empty">Wow, such empty</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="about">About and Feedback</string>
+    <string name="title_activity_about">About</string>
 </resources>

@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Dark Theme"
-        android:id="@+id/darktheme"
-        app:showAsAction="never"/>
-    <item android:title="About"
-        android:id="@+id/about"
-        app:showAsAction="never"/>
+    <item
+        app:showAsAction="always"
+        android:icon="@drawable/three_button_menu"
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/dark_theme"
+                android:checkable="true"
+                android:enabled="true"
+                android:icon="@drawable/dark_mode_icon"
+                android:title="@string/dark_theme"
+                app:showAsAction="never" />
+            <item android:title="@string/about"
+                android:id="@+id/about"
+                android:icon="@drawable/info_icon"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
 </menu>

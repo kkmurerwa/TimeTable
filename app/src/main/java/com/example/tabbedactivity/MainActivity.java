@@ -1,6 +1,7 @@
 package com.example.tabbedactivity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -55,11 +56,17 @@ public class MainActivity extends AppCompatActivity {
 //        Handles clicks on clicked menu items
         int id = item.getItemId();
 
-        if (id==R.id.darktheme){
+        if (id==R.id.dark_theme){
+            //Add additional features to change the themes
+
+            item.setChecked(!item.isChecked());//Toggles the check mark on the menu item
+
             Toast.makeText(this, "Feature coming soon", Toast.LENGTH_SHORT).show();
         }
         if (id==R.id.about){
-            Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show();
+            //Creates an intent that opens the relevant page
+            Intent openAboutPage = new Intent(this, About.class);
+            startActivity(openAboutPage);
         }
         return true;
     }
@@ -67,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     @TargetApi(24)
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+
+        //Set the fragments for each activity on the tabbed layout
         adapter.addFragment(new MonFragment(), "Monday");
         adapter.addFragment(new TueFragment(), "Tuesday");
         adapter.addFragment(new WedFragment(), "Wednesday");
