@@ -1,6 +1,8 @@
 package com.example.tabbedactivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +13,30 @@ import java.net.URI;
 import java.util.Calendar;
 import java.util.Date;
 
+
+
 public class About extends AppCompatActivity implements View.OnClickListener {
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    public static final String themeKey = "themeKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Handles shared preferences
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(themeKey)) {
+            if (sharedpreferences.getString(themeKey, "").equals("1")){
+                setTheme(R.style.DarkTheme);
+            }
+            else setTheme(R.style.AppTheme);
+        }
+        else{
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(themeKey, "0");
+            editor.commit();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 

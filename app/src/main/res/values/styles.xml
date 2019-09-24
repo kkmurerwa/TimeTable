@@ -1,20 +1,42 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Light/Day mode theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="actionBarTabTextStyle">@color/colorText</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="cardBackground">#ffffff</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <item name="textColor">#000000</item>
+    </style>
+
+    <!-- Night mode theme. -->
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#1B1B1B</item>
+        <item name="colorPrimaryDark">#252525</item>
+        <item name="colorAccent">#f0f0f0</item>
+        <item name="cardBackground">#1B1B1B</item>
+        <item name="android:popupBackground">#252525</item>
+        <item name="textColor">#ffffff</item>
+    </style>
+
+    <style name="DarkTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
+    <style name="DarkTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="DarkTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
 
 </resources>

@@ -1,7 +1,9 @@
 package com.example.tabbedactivity;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -10,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,18 +22,39 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
+    public static final String themeKey = "themeKey";
+
     private static final String TAG = "MainFragment";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private Toolbar mTopToolbar;
+    private MenuItem darkThemeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Handles shared preferences
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(themeKey)) {
+            if (sharedpreferences.getString(themeKey, "").equals("1")){
+                setTheme(R.style.DarkTheme);
+            }
+            else setTheme(R.style.AppTheme);
+        }
+        else{
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(themeKey, "0");
+            editor.commit();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mTopToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(mTopToolbar);
+
 
         Log.d(TAG, "onCreate: Starting...");
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -52,16 +76,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (sharedpreferences.getString(themeKey, "").equals("1")){
+            menu.findItem(R.id.dark_theme).setTitle("Light Theme");
+            menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_dot_menu_white);
+        }
+        else {
+            menu.findItem(R.id.dark_theme).setTitle("Dark Theme");
+            menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_button_menu);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 //        Handles clicks on clicked menu items
         int id = item.getItemId();
 
         if (id==R.id.dark_theme){
             //Add additional features to change the themes
-
-            item.setChecked(!item.isChecked());//Toggles the check mark on the menu item
-
-            Toast.makeText(this, "Feature coming soon", Toast.LENGTH_SHORT).show();
+            if (sharedpreferences.getString(themeKey, "").equals("1")){
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(themeKey, "0");
+                editor.commit();
+            }
+            else {
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(themeKey, "1");
+                editor.commit();
+            }
+            restartApp();
         }
         if (id==R.id.about){
             //Creates an intent that opens the relevant page
@@ -69,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(openAboutPage);
         }
         return true;
+    }
+
+    public void restartApp(){
+        Intent restartapp = new Intent(this, MainActivity.class);
+        startActivity(restartapp);
+        finish();
     }
 
     @TargetApi(24)

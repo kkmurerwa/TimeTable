@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+        <attr name="textColor" format="color"></attr>
+        <attr name="cardBackground" format="color"></attr>
+        <attr name="PopupMenu" format="color"></attr>
+    </declare-styleable>
+</resources>

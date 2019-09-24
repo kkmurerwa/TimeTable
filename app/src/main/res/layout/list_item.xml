@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="?attr/cardBackground"
             android:paddingTop="16sp"
             android:paddingBottom="16sp">
 
@@ -27,6 +28,7 @@
                 android:text="TextView"
                 android:textAllCaps="true"
                 android:textSize="18sp"
+                android:textColor="?attr/textColor"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewHead"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +42,7 @@
                 android:fontFamily="casual"
                 android:text="TextView"
                 android:textSize="18sp"
+                android:textColor="?attr/textColor"
                 app:layout_constraintEnd_toStartOf="@+id/textViewDesc"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/lesson"
@@ -55,6 +58,7 @@
                 android:fontFamily="@font/berkshire_swash"
                 android:text="TextView"
                 android:textSize="20sp"
+                android:textColor="?attr/textColor"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.005"
@@ -70,6 +74,7 @@
                 android:fontFamily="@font/bad_script"
                 android:text="TextView"
                 android:textSize="18sp"
+                android:textColor="?attr/textColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lesson" />
 
