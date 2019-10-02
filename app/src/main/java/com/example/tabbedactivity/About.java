@@ -54,8 +54,15 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         //Method to handle button events
         switch (v.getId()) {
 
+            case R.id.contribute:
+                //Create intent to open the GitHub Repo hosting the timetable
+                break;
+
             case R.id.report_bug:
+                //Get system date for bug report
                 Date bugReportDate = Calendar.getInstance().getTime();
+
+                //Launch intent
                 Intent bugReportEmailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "xwaxes@gmail.com", null))//Set recipient and open primary mail client
                 .putExtra(Intent.EXTRA_SUBJECT, "Bug Report")//Set email subject
