@@ -19,13 +19,13 @@ public class TueFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
-    private String [] unitCodes = {"413", "416", "419", "403", "401"};
-    private String [] startTimes = {"7", "9", "11", "2", "4"};
-    private String [] endTimes = {"9", "11", "12", "4", "6"};
-    private String [] unitNames = {"Principles of Functional Programming", "Data Mining", "Intelligent Agents",
+    private String[] unitCodes = {"413", "416", "419", "403", "401"};
+    private String[] startTimes = {"7", "9", "11", "2", "4"};
+    private String[] endTimes = {"9", "11", "12", "4", "6"};
+    private String[] unitNames = {"Principles of Functional Programming", "Data Mining", "Intelligent Agents",
             "Computer Design Lab", "Computer Systems Engineering I"};
-    private String [] lecturers = {"Kinya", "Kinya", "Mugoye", "Nyabundi", "McOyowo"};
-    private String [] rooms = {"TB3", "LAB3", "NL6", "ELAB", "TB3"};
+    private String[] lecturers = {"Kinya", "Kinya", "Mugoye", "Nyabundi", "McOyowo"};
+    private String[] rooms = {"TB3", "LAB3", "NL6", "ELAB", "TB3"};
 
     @Nullable
     @Override
@@ -43,10 +43,10 @@ public class TueFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         listItems = new ArrayList<>();
 
-        for (int i = 0; i <unitCodes.length; i++){
+        for (int i = 0; i < unitCodes.length; i++) {
             ListItem listItem = new ListItem(
-                    startTimes[i] +":00 - " +endTimes[i] +":00",
-                    "CCT " +unitCodes[i] +" | " +rooms[i],
+                    startTimes[i] + ":00 - " + endTimes[i] + ":00",
+                    "CCT " + unitCodes[i] + " | " + rooms[i],
                     unitNames[i],
                     lecturers[i]
             );

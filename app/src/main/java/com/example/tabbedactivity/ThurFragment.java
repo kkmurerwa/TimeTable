@@ -19,12 +19,12 @@ public class ThurFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
-    private String [] unitCodes = {"411"};
-    private String [] startTimes = {"12"};
-    private String [] endTimes = {"1"};
-    private String [] unitNames = {"Neural Networks"};
-    private String [] lecturers = {"Okoyo"};
-    private String [] rooms = {"TB2"};
+    private String[] unitCodes = {"411"};
+    private String[] startTimes = {"12"};
+    private String[] endTimes = {"1"};
+    private String[] unitNames = {"Neural Networks"};
+    private String[] lecturers = {"Okoyo"};
+    private String[] rooms = {"TB2"};
 
     private int units = unitCodes.length;
 
@@ -44,10 +44,10 @@ public class ThurFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         listItems = new ArrayList<>();
 
-        for (int i = 0; i <units; i++){
+        for (int i = 0; i < units; i++) {
             ListItem listItem = new ListItem(
-                    startTimes[i] +":00 - " +endTimes[i] +":00",
-                    "CCT " +unitCodes[i] +" | " +rooms[i],
+                    startTimes[i] + ":00 - " + endTimes[i] + ":00",
+                    "CCT " + unitCodes[i] + " | " + rooms[i],
                     unitNames[i],
                     lecturers[i]
             );

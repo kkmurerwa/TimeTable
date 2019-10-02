@@ -19,13 +19,13 @@ public class WedFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
-    private String [] unitCodes = {"401", "403", "425", "405", "411"};
-    private String [] startTimes = {"7", "9", "11", "2", "4"};
-    private String [] endTimes = {"9", "11", "1", "4", "6"};
-    private String [] unitNames = {"Computer Systems Engineering I", "Computer Design Lab", "CISCO III",
+    private String[] unitCodes = {"401", "403", "425", "405", "411"};
+    private String[] startTimes = {"7", "9", "11", "2", "4"};
+    private String[] endTimes = {"9", "11", "1", "4", "6"};
+    private String[] unitNames = {"Computer Systems Engineering I", "Computer Design Lab", "CISCO III",
             "Computer Technology Project I", "Neural Networks"};
-    private String [] lecturers = {"McOyowo", "Nyabundi", "Alwala", "All", "Okoyo"};
-    private String [] rooms = {"TB3", "ELAB", "LAB1", "TB2", "TB3"};
+    private String[] lecturers = {"McOyowo", "Nyabundi", "Alwala", "All", "Okoyo"};
+    private String[] rooms = {"TB3", "ELAB", "LAB1", "TB2", "TB3"};
 
     private int units = unitCodes.length;
 
@@ -45,10 +45,10 @@ public class WedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         listItems = new ArrayList<>();
 
-        for (int i = 0; i <units; i++){
+        for (int i = 0; i < units; i++) {
             ListItem listItem = new ListItem(
-                    startTimes[i] +":00 - " +endTimes[i] +":00",
-                    "CCT " +unitCodes[i] +" | " +rooms[i],
+                    startTimes[i] + ":00 - " + endTimes[i] + ":00",
+                    "CCT " + unitCodes[i] + " | " + rooms[i],
                     unitNames[i],
                     lecturers[i]
             );
