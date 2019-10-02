@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(themeKey, "0");
             editor.commit();
+            restartApp();//Bug fix for app not showing ActionBar on first install
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mTopToolbar = findViewById(R.id.my_toolbar);
 

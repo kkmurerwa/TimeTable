@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.net.URI;
 import java.util.Calendar;
@@ -40,6 +41,10 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        //Event listener for Contribute button
+        Button contribute = findViewById(R.id.contribute);
+        contribute.setOnClickListener(this);
+
         //Event listener for Report Bug button
         Button bugReport = findViewById(R.id.report_bug);
         bugReport.setOnClickListener(this);
@@ -55,14 +60,18 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.contribute:
-                //Create intent to open the GitHub Repo hosting the timetable
+                //Intent to open the GitHub Repo hosting the timetable
+                Toast.makeText(this, "Opening project repo...", Toast.LENGTH_SHORT).show();
+                Intent contributeIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://github.com/xwaxes01/TimeTable"));
+                startActivity(contributeIntent);
                 break;
 
             case R.id.report_bug:
                 //Get system date for bug report
                 Date bugReportDate = Calendar.getInstance().getTime();
 
-                //Launch intent
+                //Add extras and launch intent to send email
                 Intent bugReportEmailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "xwaxes@gmail.com", null))//Set recipient and open primary mail client
                 .putExtra(Intent.EXTRA_SUBJECT, "Bug Report")//Set email subject
@@ -72,6 +81,7 @@ public class About extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.feedback_button:
+                //Add extras and launch intent to send email
                 Intent feedbackEmailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", "xwaxes@gmail.com", null))//Set recipient and open primary mail client
                         .putExtra(Intent.EXTRA_SUBJECT, "Feedback")//Set email subject
