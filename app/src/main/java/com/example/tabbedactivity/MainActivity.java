@@ -30,26 +30,29 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private Toolbar mTopToolbar;
-    private MenuItem darkThemeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Handles shared preferences
+        /*Handle shared preferences before calling the main activity*/
+
+        //Retrieves the saved shared preferences if any
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        //Loads the saved theme Key from shared preferences if exists and sets it's respective theme
         if (sharedpreferences.contains(themeKey)) {
             if (sharedpreferences.getString(themeKey, "").equals("1")){
                 setTheme(R.style.DarkTheme);
             }
             else setTheme(R.style.AppTheme);
         }
+        //Creates a shared preferences file if it does not exist
         else{
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(themeKey, "0");
             editor.commit();
-            restartApp();//Bug fix for app not showing ActionBar on first install
         }
-
+        //Sets the main activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(mViewPager);
 
+        //Set the tab layout and its qualities
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -70,13 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        Creates the menu inflater
+        //Creates the menu inflater for the action bar menu
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        //Changes the label of the action bar menu items before loading them
         if (sharedpreferences.getString(themeKey, "").equals("1")){
             menu.findItem(R.id.dark_theme).setTitle("Light Theme");
             menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_dot_menu_white);
@@ -85,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.dark_theme).setTitle("Dark Theme");
             menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_button_menu);
         }
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id==R.id.dark_theme){
-            //Add additional features to change the themes
+            //Changes the theme selected and stores it in the shared preferences
             if (sharedpreferences.getString(themeKey, "").equals("1")){
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString(themeKey, "0");
@@ -106,10 +110,12 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(themeKey, "1");
                 editor.commit();
             }
+
+            //Restart app to employ changes
             restartApp();
         }
         if (id==R.id.about){
-            //Creates an intent that opens the relevant page
+            //Creates an intent that opens the info and about page
             Intent openAboutPage = new Intent(this, About.class);
             startActivity(openAboutPage);
         }
@@ -117,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void restartApp(){
+        //Called whenever there is need for an app restart
         Intent restartapp = new Intent(this, MainActivity.class);
         startActivity(restartapp);
         finish();
@@ -124,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     @TargetApi(24)
     private void setupViewPager(ViewPager viewPager){
+        //Sets the tabs and their adapters and fragments
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         //Set the fragments for each activity on the tabbed layout
@@ -133,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new ThurFragment(), "Thursday");
         adapter.addFragment(new FriFragment(), "Friday");
         viewPager.setAdapter(adapter);
+
+        //Retrieves the day of the week for devices with API 24 and above and opens the app on that tab
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         switch (day) {

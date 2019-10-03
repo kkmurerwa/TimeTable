@@ -23,21 +23,26 @@ public class About extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Handles shared preferences
+        /*Handle shared preferences before calling the main activity*/
+
+        //Retrieves the saved shared preferences if any
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+
+        //Loads the saved theme Key from shared preferences if exists and sets it's respective theme
         if (sharedpreferences.contains(themeKey)) {
             if (sharedpreferences.getString(themeKey, "").equals("1")){
                 setTheme(R.style.DarkTheme);
             }
             else setTheme(R.style.AppTheme);
         }
+        //Creates a shared preferences file if it does not exist
         else{
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(themeKey, "0");
             editor.commit();
         }
-
+        //Sets the main activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
