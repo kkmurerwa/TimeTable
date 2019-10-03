@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString(themeKey, "0");
             editor.commit();
+            restartApp();
         }
         //Sets the main activity layout
         super.onCreate(savedInstanceState);
@@ -164,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 viewPager.setCurrentItem(0);
                 break;
-
         }
     }
 }
