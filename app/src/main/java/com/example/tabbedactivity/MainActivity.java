@@ -6,24 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
     public static final String themeKey = "themeKey";
 
     private static final String TAG = "MainFragment";
@@ -33,25 +27,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*Handle shared preferences before calling the main activity*/
-
-        //Retrieves the saved shared preferences if any
-        sharedpreferences = getSharedPreferences(mypreference,
+        //Handles shared preferences
+        sharedPreferences = getSharedPreferences(myPreference,
                 Context.MODE_PRIVATE);
-
-        //Loads the saved theme Key from shared preferences if exists and sets it's respective theme
-        if (sharedpreferences.contains(themeKey)) {
-            if (sharedpreferences.getString(themeKey, "").equals("1")){
+        if (sharedPreferences.contains(themeKey)) {
+            if (sharedPreferences.getString(themeKey, "").equals("1")) {
                 setTheme(R.style.DarkTheme);
-            }
-            else setTheme(R.style.AppTheme);
-        }
-        //Creates a shared preferences file if it does not exist
-        else{
-            SharedPreferences.Editor editor = sharedpreferences.edit();
+            } else setTheme(R.style.AppTheme);
+        } else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(themeKey, "0");
-            editor.commit();
-            restartApp();
+            editor.apply();
+            restartApp();//Bug fix for app not showing ActionBar on first install
         }
         //Sets the main activity layout
         super.onCreate(savedInstanceState);
@@ -63,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Starting...");
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager = findViewById(R.id.view_pager);
         setupViewPager(mViewPager);
 
         //Set the tab layout and its qualities
@@ -75,19 +62,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Creates the menu inflater for the action bar menu
+        //Creates the menu inflater
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        //Changes the label of the action bar menu items before loading them
-        if (sharedpreferences.getString(themeKey, "").equals("1")){
+        if (sharedPreferences.getString(themeKey, "").equals("1")) {
             menu.findItem(R.id.dark_theme).setTitle("Light Theme");
             menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_dot_menu_white);
-        }
-        else {
+        } else {
             menu.findItem(R.id.dark_theme).setTitle("Dark Theme");
             menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_button_menu);
         }
@@ -96,43 +81,39 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        Handles clicks on clicked menu items
+        //Handles clicks on clicked menu items
         int id = item.getItemId();
 
-        if (id==R.id.dark_theme){
-            //Changes the theme selected and stores it in the shared preferences
-            if (sharedpreferences.getString(themeKey, "").equals("1")){
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+        if (id == R.id.dark_theme) {
+            //Add additional features to change the themes
+            if (sharedPreferences.getString(themeKey, "").equals("1")) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(themeKey, "0");
-                editor.commit();
-            }
-            else {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.apply();
+            } else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(themeKey, "1");
-                editor.commit();
+                editor.apply();
             }
 
             //Restart app to employ changes
             restartApp();
         }
         if (id==R.id.about){
-            //Creates an intent that opens the info and about page
             Intent openAboutPage = new Intent(this, About.class);
             startActivity(openAboutPage);
         }
         return true;
     }
 
-    public void restartApp(){
-        //Called whenever there is need for an app restart
-        Intent restartapp = new Intent(this, MainActivity.class);
-        startActivity(restartapp);
+    public void restartApp() {
+        Intent restartApp = new Intent(this, MainActivity.class);
+        startActivity(restartApp);
         finish();
     }
 
     @TargetApi(24)
-    private void setupViewPager(ViewPager viewPager){
-        //Sets the tabs and their adapters and fragments
+    private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         //Set the fragments for each activity on the tabbed layout

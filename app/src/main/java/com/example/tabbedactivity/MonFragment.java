@@ -20,12 +20,12 @@ public class MonFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
     private int units = 3;
-    private String [] unitCodes = {"416", "419", "413"};
-    private String [] startTimes = {"11", "2", "4"};
-    private String [] endTimes = {"1", "4", "5"};
-    private String [] unitNames = {"Data Mining", "Intelligent Agents", "Principles of Functional Programming"};
-    private String [] lecturers = {"Kinya", "Mugoye", "Kinya"};
-    private String [] rooms = {"NL7", "TB2", "TB2"};
+    private String[] unitCodes = {"416", "419", "413"};
+    private String[] startTimes = {"11", "2", "4"};
+    private String[] endTimes = {"1", "4", "5"};
+    private String[] unitNames = {"Data Mining", "Intelligent Agents", "Principles of Functional Programming"};
+    private String[] lecturers = {"Kinya", "Mugoye", "Kinya"};
+    private String[] rooms = {"NL7", "TB2", "TB2"};
 
     @Nullable
     @Override
@@ -43,10 +43,10 @@ public class MonFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         listItems = new ArrayList<>();
 
-        for (int i = 0; i <3; i++){
+        for (int i = 0; i < 3; i++) {
             ListItem listItem = new ListItem(
-                    startTimes[i] +":00 - " +endTimes[i] +":00",
-                    "CCT " +unitCodes[i] +" | " +rooms[i],
+                    startTimes[i] + ":00 - " + endTimes[i] + ":00",
+                    "CCT " + unitCodes[i] + " | " + rooms[i],
                     unitNames[i],
                     lecturers[i]
             );
