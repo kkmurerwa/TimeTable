@@ -34,7 +34,7 @@ public class About extends AppCompatActivity implements View.OnClickListener {
             editor.putString(themeKey, "0");
             editor.apply();
         }
-
+        //Sets the main activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 

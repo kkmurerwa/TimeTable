@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#CCC7C7</color>
     <color name="colorAccent">#1D1D1D</color>
     <color name="colorText">#000000</color>
+    <color name="navbarColor">#00000000</color>
 </resources>

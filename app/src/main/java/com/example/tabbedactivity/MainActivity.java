@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private Toolbar mTopToolbar;
-    private MenuItem darkThemeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
             restartApp();//Bug fix for app not showing ActionBar on first install
         }
-
+        //Sets the main activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         setupViewPager(mViewPager);
 
+        //Set the tab layout and its qualities
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.dark_theme).setTitle("Dark Theme");
             menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_button_menu);
         }
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -96,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(themeKey, "1");
                 editor.apply();
             }
+
+            //Restart app to employ changes
             restartApp();
         }
-        if (id == R.id.about) {
-            //Creates an intent that opens the relevant page
+        if (id==R.id.about){
             Intent openAboutPage = new Intent(this, About.class);
             startActivity(openAboutPage);
         }
@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new ThurFragment(), "Thursday");
         adapter.addFragment(new FriFragment(), "Friday");
         viewPager.setAdapter(adapter);
+
+        //Retrieves the day of the week for devices with API 24 and above and opens the app on that tab
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         switch (day) {
