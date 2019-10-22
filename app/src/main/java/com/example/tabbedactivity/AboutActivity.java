@@ -3,22 +3,26 @@ package com.example.tabbedactivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class About extends AppCompatActivity implements View.OnClickListener {
+public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     public static final String themeKey = "themeKey";
+    Button contribute, bugReport, feedback;
+    TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +42,22 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        // setting app version
+        version = findViewById(R.id.app_version);
+        String version_number =  getApplicationContext()
+                .getString(R.string.app_version, getAppVersion(AboutActivity.this));
+        version.setText(version_number);
+
         //Event listener for Contribute button
-        Button contribute = findViewById(R.id.contribute);
+        contribute = findViewById(R.id.contribute);
         contribute.setOnClickListener(this);
 
         //Event listener for Report Bug button
-        Button bugReport = findViewById(R.id.report_bug);
+        bugReport = findViewById(R.id.report_bug);
         bugReport.setOnClickListener(this);
 
         //Event Listener for Feedback button
-        Button feedback = findViewById(R.id.feedback_button);
+        feedback = findViewById(R.id.feedback_button);
         feedback.setOnClickListener(this);
     }
 
@@ -90,5 +100,17 @@ public class About extends AppCompatActivity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+    static String getAppVersion(Context context) {
+        String result = "";
+        try {
+            result = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
+                    .versionName;
+            result = result.replaceAll("[a-zA-Z]|-", "");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+
     }
 }
