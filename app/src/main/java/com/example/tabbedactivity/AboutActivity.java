@@ -6,11 +6,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,11 +19,27 @@ import java.util.Date;
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     public static final String themeKey = "themeKey";
+    SharedPreferences sharedPreferences;
     Button contribute, bugReport, feedback;
     TextView version;
+
+    /*
+     * Takes Activity Context and returns a String of the App Version e.g 1.0
+     */
+    static String getAppVersion(Context context) {
+        String result = "";
+        try {
+            result = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
+                    .versionName;
+            result = result.replaceAll("[a-zA-Z]|-", "");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +61,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
         // setting app version
         version = findViewById(R.id.app_version);
-        String version_number =  getApplicationContext()
+        String version_number = getApplicationContext()
                 .getString(R.string.app_version, getAppVersion(AboutActivity.this));
         version.setText(version_number);
 
@@ -100,17 +117,5 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             default:
                 break;
         }
-    }
-    static String getAppVersion(Context context) {
-        String result = "";
-        try {
-            result = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
-                    .versionName;
-            result = result.replaceAll("[a-zA-Z]|-", "");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return result;
-
     }
 }
