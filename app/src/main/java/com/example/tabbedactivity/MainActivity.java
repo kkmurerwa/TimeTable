@@ -6,24 +6,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+import com.michaelflisar.changelog.ChangelogBuilder;
+import com.michaelflisar.changelog.classes.DefaultAutoVersionNameFormatter;
+import com.michaelflisar.changelog.classes.ImportanceChangelogSorter;
+
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     public static final String themeKey = "themeKey";
-
-    private static final String TAG = "MainFragment";
-    private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager mViewPager;
-    private Toolbar mTopToolbar;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +43,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTopToolbar = findViewById(R.id.my_toolbar);
 
+        Toolbar toolbar = findViewById(R.id.my_toolbar);
 
-        Log.d(TAG, "onCreate: Starting...");
-        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        new SectionsPageAdapter(getSupportFragmentManager());
 
-        mViewPager = findViewById(R.id.view_pager);
-        setupViewPager(mViewPager);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        setupViewPager(viewPager);
 
         //Set the tab layout and its qualities
         TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+
+        String versionCode = AboutActivity.getAppVersion(MainActivity.this);
+        SharedPreferences preferences = getSharedPreferences("PREF", 0);
+        boolean firstRun = preferences.getBoolean("firstRun" + versionCode, true);
+
+        if (firstRun) {
+            // show changelog
+            showChangelog();
+            // update status of firstRun
+            preferences = getSharedPreferences("PREF", 0);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstRun" + versionCode, false);
+            editor.apply();
+
+        }
+
+    }
+
+    private void showChangelog() {
+        ChangelogBuilder builder = new ChangelogBuilder()
+                .withUseBulletList(true)
+                .withSorter(new ImportanceChangelogSorter())
+                .withVersionNameFormatter(new DefaultAutoVersionNameFormatter(DefaultAutoVersionNameFormatter.Type.MajorMinor, "b"));
+        builder.buildAndShowDialog(this, false);
+
 
     }
 
@@ -99,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
             //Restart app to employ changes
             restartApp();
         }
-        if (id==R.id.about){
-            Intent openAboutPage = new Intent(this, About.class);
+        if (id == R.id.about) {
+            Intent openAboutPage = new Intent(this, AboutActivity.class);
             startActivity(openAboutPage);
         }
         return true;
