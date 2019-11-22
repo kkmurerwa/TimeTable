@@ -1,0 +1,34 @@
+<changelog>
+    <release
+        date="2019-11-01"
+        versionCode="120">
+        <info>Some info 1 - apostrophe test: it's weird, but apostrophes do not work in precompiled
+            xml files placed in xml resources!
+        </info>
+        <new type="summary">Added Changelog</new>
+        <bugfix>Toolbar Crash fix</bugfix>
+        <info>Some info 2</info>
+        <new type="summary">Some improvement 2</new>
+        <bugfix>Some bugfix 2</bugfix>
+        <info>Some info 3</info>
+        <new>Some improvement 3</new>
+        <bugfix>Some bugfix 3</bugfix>
+        <customTag>My custom tag text...</customTag>
+    </release>
+    <release
+        date="2019-10-04"
+        versionCode="115">
+        <info>Some info</info>
+        <new type="summary">Some improvement</new>
+        <bugfix>Some bugfix</bugfix>
+    </release>
+    <release
+        date="2019-09-03"
+        filter="theme"
+        versionCode="1"
+        versionName="Version 1.10">
+        <info>Some dogs info - filter only set in release tag</info>
+        <new type="summary">Night theme</new>
+        <bugfix>Crash bugfix</bugfix>
+    </release>
+</changelog>

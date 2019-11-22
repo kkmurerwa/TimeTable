@@ -6,5 +6,11 @@
     <string name="title_activity_about">About</string>
     <string name="developer_and_contributors">This app was developed and is maintained by Kenneth Murerwa,
         a fourth-year Computer Technology student at Maseno University with the help of the following
-        diligent developer(s):\n\n1. Dennis Mutua\n</string>
+        diligent developer(s):\n\n1. dennohpeter </string>
+    <string name="app_version">Version %1$s</string>
+    <string name="cct_timetable">CCT TimeTable</string>
+    <string name="credits">Credits</string>
+    <string name="contribute_to_project">Contribute to Project</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="report_a_bug">Report a bug</string>
 </resources>
