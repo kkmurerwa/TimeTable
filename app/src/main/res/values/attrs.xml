@@ -4,5 +4,6 @@
         <attr name="textColor" format="color"></attr>
         <attr name="cardBackground" format="color"></attr>
         <attr name="PopupMenu" format="color"></attr>
+        <attr name="colorButtonDark" format="color"></attr>
     </declare-styleable>
 </resources>

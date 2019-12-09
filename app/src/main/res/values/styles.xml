@@ -17,6 +17,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
+        <item name="colorButtonDark">#1B1B1B</item>
         <item name="colorAccent">#f0f0f0</item>
         <item name="cardBackground">#000000</item>
         <item name="android:popupBackground">#000000</item>
